@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     // MARK: - PROPERTIES
+    @State private var isCreditsPresented: Bool = false
     let note: Note
     let count: Int
     let index: Int
@@ -17,16 +18,7 @@ struct DetailView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 3) {
             // HEADER
-            HStack {
-                Capsule()
-                    .frame(height: 1)
-                
-                Image(systemName: "note.text")
-                
-                Capsule()
-                    .frame(height: 1)
-            } //: HSTACK
-            .foregroundColor(.accentColor)
+            HeaderView(title: "")
             
             // CONTENT
             Spacer()
@@ -53,6 +45,12 @@ struct DetailView: View {
                 
                 Image(systemName: "info.circle")
                     .imageScale(.large)
+                    .onTapGesture {
+                        isCreditsPresented.toggle()
+                    }
+                    .sheet(isPresented: $isCreditsPresented) {
+                        CreditsView()
+                    }
             } //: HSTACK
             .foregroundColor(.secondary)
         } //: VSTACK
